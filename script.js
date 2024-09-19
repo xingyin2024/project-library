@@ -166,6 +166,7 @@ const filterDropdown = document.getElementById("dropdown")
 const favouritesContainer = document.getElementById("favourites")
 const favList = document.getElementById('favouriteList')
 const sortContainer = document.getElementById("sortContainer") 
+const resetButton = document.getElementById('resetButton');
 
 let favouriteBooks = [] // Array to store favorite books
 
@@ -331,7 +332,6 @@ const toggleSortMenu = () => {
 }
 
 // Event listener for the reset button
-const resetButton = document.getElementById('resetButton');
 resetButton.addEventListener('click', () => {
   location.reload(); // Refreshes the page
 });
