@@ -1,5 +1,5 @@
 body {
-  font-family: Georgia;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 h1,
@@ -8,13 +8,13 @@ h2 {
 }
 
 #dropdown {
-  margin: 10px;
+  margin: 16px;
   font-size: 0,9rem;
 }
 
 #container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
   gap: 1rem;
 }
 
@@ -46,23 +46,30 @@ h2 {
   margin-top: 1rem;
   font-size: 1.2rem;
   color: #2c3e50;
-  text-align: left;
+  text-align: center;
+  height: 3rem; /* Fixed height to align all titles */
+  line-height: 1.5rem;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  -webkit-box-orient: vertical;
+  white-space: normal; /* Allow wrapping */
 }
 
 .card p {
-  margin-top: 0.5rem;
   text-align: left;
   font-size: 1rem;
   color: #333;
+  margin: 1px;
 }
 
 .card p b {
-  color: #2980b9;
+  color: #0018A4;
   text-align: left;
 }
 
 .card button {
-  background-color: #2980b9;
+  background-color: #0018A4;
   color: white;
   border: none;
   border-radius: 8px;
@@ -74,16 +81,70 @@ h2 {
 }
 
 .card button:hover {
-  background-color: #1e6f93;
+  background-color: #ccffe2;
+  color: #0018A4;
 }
 
 .card button:focus {
-  outline: solid 3px red;
+  outline: solid 2px #0018A4;
 }
 
 .description {
   margin-top: 0.5rem;
-  color: #666;
+  color: #555;
   font-size: 0.9rem;
+  line-height: 1,4;
   display: none;
+}
+
+/* 
+**************** footer style ***********************
+*/
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.social-media {
+  display: flex;
+  padding: 10px;
+}
+
+.social-media a {
+  margin-left: 10px;
+}
+
+.social-media img {
+  max-width: 20px;
+}
+
+.logo img {
+  max-width: 50px;
+  padding-left: 15px;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #bbb;
+}
+
+@media (max-width: 600px) {
+  footer {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;  
+    align-items: center;
+  }
+}
+
+@media (min-width: 1025px) {
+  footer {
+    padding: 20px 0;
+  }
 }

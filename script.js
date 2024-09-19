@@ -59,17 +59,7 @@ const BOOKS = [
       'A fantasy adventure novel that follows Bilbo Baggins on a quest to help a group of dwarves reclaim their homeland from a dragon.',
     image: './books-images/the-hobbit.jpg'
   },
-  {
-    title: "Harry Potter and the Sorcerer's Stone",
-    author: 'J.K. Rowling',
-    year: 1997,
-    genre: 'Fantasy',
-    rating: 4.7,
-    description:
-      'The first book in the beloved Harry Potter series, it introduces readers to the magical world of Hogwarts and the young wizard Harry Potter.',
-    image: "./books-images/harry-potter-and-the-sorcerer.jpg"
-  },
-  {
+    {
     title: 'Moby-Dick',
     author: 'Herman Melville',
     year: 1851,
@@ -157,16 +147,6 @@ const BOOKS = [
     rating: 4,
     description:
       "Set in a post-apocalyptic world, it follows a father and son's harrowing journey to survive and find safety.",
-    image: './books-images/unknown.jpg'
-  },
-  {
-    title: "The Hitchhiker's Guide to the Galaxy",
-    author: 'Douglas Adams',
-    year: 1979,
-    genre: 'Science Fiction',
-    rating: 4.35,
-    description:
-      "A comedic science fiction series that follows the misadventures of Arthur Dent after Earth's destruction.",
     image: './books-images/unknown.jpg'
   },
   {
