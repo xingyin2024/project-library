@@ -179,6 +179,7 @@ const getBooks = (bookArray) => {
       <div class="card">
         <img src=${book.image} alt=${book.title} />
         <h2>${book.title}</h2>
+        <hr>
         <p><b>Author: </b>${book.author}</p>
         <p><b>Year: </b>${book.year}</p>
         <p><b>Genre: </b>${book.genre}</p>

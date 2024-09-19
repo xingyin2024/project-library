@@ -57,6 +57,14 @@ h2 {
   white-space: normal; /* Allow wrapping */
 }
 
+/*Add a Grey Line inbetween*/
+.card hr {
+  width: 40%;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
 .card p {
   text-align: left;
   font-size: 1rem;
