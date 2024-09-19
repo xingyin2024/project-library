@@ -4,7 +4,12 @@ body {
 
 h1,
 h2 {
-  text-align: center;
+  text-align: left;
+}
+
+#dropdown {
+  margin: 10px;
+  font-size: 0,9rem;
 }
 
 #container {
@@ -21,6 +26,12 @@ h2 {
   padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
 }
 
 .card img {
@@ -31,9 +42,48 @@ h2 {
   border-radius: 4px;
 }
 
+.card h2 {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  color: #2c3e50;
+  text-align: left;
+}
+
 .card p {
   margin-top: 0.5rem;
-  text-align: center;
+  text-align: left;
   font-size: 1rem;
   color: #333;
+}
+
+.card p b {
+  color: #2980b9;
+  text-align: left;
+}
+
+.card button {
+  background-color: #2980b9;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.card button:hover {
+  background-color: #1e6f93;
+}
+
+.card button:focus {
+  outline: solid 3px red;
+}
+
+.description {
+  margin-top: 0.5rem;
+  color: #666;
+  font-size: 0.9rem;
+  display: none;
 }

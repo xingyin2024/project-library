@@ -199,14 +199,25 @@ const getBooks = (bookArray) => {
       <div class="card">
         <img src=${book.image} alt=${book.title} />
         <h2>${book.title}</h2>
-        <p><b>Author:</b>${book.author}</p>
-        <p><b>Year:</b>${book.year}</p>
-        <p><b>Genre:</b>${book.genre}</p>
-        <p><b>Rating:</b>${book.rating}</p>
-        <p><b>Description:</b><br>${book.description}</p>
+        <p><b>Author: </b>${book.author}</p>
+        <p><b>Year: </b>${book.year}</p>
+        <p><b>Genre: </b>${book.genre}</p>
+        <p><b>Rating: </b>${book.rating}</p>
+        <button onclick="toggleDescription('${book.title}')">Read More</button>
+        <p id="desc-${book.title}" class="description" style="display: none;"><b>Description: </b>${book.description}</p>
         <button onclick="toggleFavourite('${book.title}')">${buttonText}</button>
       </div>`
   })
+}
+
+// Function to toggle Read More
+const toggleDescription = (bookTitle) => {
+  const descriptionElement = document.getElementById(`desc-${bookTitle}`)
+  if (descriptionElement.style.display === "none") {
+    descriptionElement.style.display = "block"
+  } else {
+    descriptionElement.style.display = "none"
+  }
 }
 
 // Function to display favourite books
@@ -229,9 +240,10 @@ const toggleFavourite = (bookTitle) => {
   }
 
   getBooks(BOOKS) // Refresh the book list
+  console.table(BOOKS)
   displayFavourites() // Update the favorite books list  
+  console.table(favouriteBooks)
 }
-
 
 // Function to filter books based on genre
 const filterBooks = () => {
