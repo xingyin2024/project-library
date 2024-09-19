@@ -67,7 +67,7 @@ const BOOKS = [
     rating: 4.7,
     description:
       'The first book in the beloved Harry Potter series, it introduces readers to the magical world of Hogwarts and the young wizard Harry Potter.',
-    image: "./books-images/harry-potter-and-the-sorcerer'.jpg"
+    image: "./books-images/harry-potter-and-the-sorcerer.jpg"
   },
   {
     title: 'Moby-Dick',
@@ -181,10 +181,20 @@ const BOOKS = [
   }
 ]
 
-const container = document.getElementById("container")
+console.table(BOOKS)
 
+const container = document.getElementById("container")
+const filterDropdown = document.getElementById("dropdown")
+const favouritesContainer = document.getElementById("favourites")
+let favouriteBooks = [] // Array to store favorite books
+
+// Function to display books
 const getBooks = (bookArray) => {
+  container.innerHTML = "" // Clean up the container
   bookArray.forEach(book => {
+    const isFavourite = favouriteBooks.includes(book) // Check if the book is a favorite
+    const buttonText = isFavourite ? "Remove from Favourites" : "Add to Favourites" // Change the text on the favo button
+    
     container.innerHTML += `
       <div class="card">
         <img src=${book.image} alt=${book.title} />
@@ -194,11 +204,47 @@ const getBooks = (bookArray) => {
         <p><b>Genre:</b>${book.genre}</p>
         <p><b>Rating:</b>${book.rating}</p>
         <p><b>Description:</b><br>${book.description}</p>
+        <button onclick="toggleFavourite('${book.title}')">${buttonText}</button>
       </div>`
   })
 }
 
-//console.table(BOOKS)
+// Function to display favourite books
+const displayFavourites = () => {
+  favouritesContainer.innerHTML = "<h2>Favorite Books</h2>"
+  favouriteBooks.forEach(book => {
+    favouritesContainer.innerHTML += `<p> ${book.title}</p>`
+  })
+}
 
+// Function to toggle favourite books (add/remove)
+const toggleFavourite = (bookTitle) => {
+  const book = BOOKS.find(book => book.title === bookTitle)
+  const bookIndex = favouriteBooks.indexOf(book)
+
+  if (bookIndex > -1) {
+    favouriteBooks.splice(bookIndex,1) // If the book is already in the favorites, remove it
+  } else {
+    favouriteBooks.push(book) // Otherwise, add it to the favorites
+  }
+
+  getBooks(BOOKS) // Refresh the book list
+  displayFavourites() // Update the favorite books list  
+}
+
+
+// Function to filter books based on genre
+const filterBooks = () => {
+  // get the value from the select
+  const value = filterDropdown.value
+  if (value === "all") {
+    getBooks(BOOKS) //  Display all books
+  } else {
+    const filteredList = BOOKS.filter(book => book.genre === value) // Filter books by genre
+    getBooks(filteredList)
+  }
+}
+
+filterDropdown.addEventListener("change", filterBooks)
 
 getBooks(BOOKS)
