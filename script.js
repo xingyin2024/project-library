@@ -181,15 +181,15 @@ const toggleSortMenu = () => {
       <label>
         <input type="radio" name="sort" value="year-desc" onclick="sortBooksBy('year-desc')">
         Sort by Year: Descending
-      </label>
+      </label><br>
       <label>
         <input type="radio" name="sort" value="year-asc" onclick="sortBooksBy('year-asc')">
         Sort by Year: Ascending
-      </label>
+      </label><br>
       <label>
         <input type="radio" name="sort" value="rating-low-high" onclick="sortBooksBy('rating-low-high')">
         Sort by Rating: Low to High
-      </label>
+      </label><br>
       <label>
         <input type="radio" name="sort" value="rating-high-low" onclick="sortBooksBy('rating-high-low')">
         Sort by Rating: High to Low
@@ -200,10 +200,10 @@ const toggleSortMenu = () => {
   const sortToggleButton = document.getElementById("sortToggle")
   sortToggleButton.addEventListener("click", () => {
     const sortMenu = document.getElementById("sortMenu")
-    if (sortMenu.classList.contains('hidden')) {
-      sortMenu.classList.remove('hidden')
+    if (sortMenu.style.display === "none" || sortMenu.style.display === "") {
+      sortMenu.style.display = "block";  // Show the menu
     } else {
-      sortMenu.classList.add('hidden')
+      sortMenu.style.display = "none";   // Hide the menu
     }
   })
 }
@@ -270,16 +270,24 @@ const toggleDescription = (bookTitle) => {
 
 // Function to toggle the favorite books menu visibility (ham menu)
 const toggleFavouriteMenu = () => {
-  favouritesContainer.classList.toggle('hidden') // Toggle the 'hidden' class
+  favouritesContainer.classList.toggle('show') // Toggle the 'show' class
 }
 
 // Function to display favorite books in the ham menu
 const displayFavourites = () => {
   favList.innerHTML = "" // Clean up the fav list
 
-  favouriteBooks.forEach(book => {
-    favList.innerHTML += `<li>${book.title}</li>`
-  })
+  if (favouriteBooks.length > 0) {
+    // Add the heading "Your favourite books" only if there are favorite books
+    favList.innerHTML += `<p><strong>Your favourite books:</strong></p>`
+    
+    favouriteBooks.forEach(book => {
+      favList.innerHTML += `<li>${book.title}</li>`
+    })
+  } else {
+    // Display a message if no favorite books are added yet
+    favList.innerHTML += `<p><strong>No favourite books added yet.</strong></p>`
+  }
 }
 
 // Function to toggle favourite books (add/remove)

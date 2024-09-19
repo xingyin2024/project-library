@@ -13,6 +13,9 @@
   <header class="header">
     <h1>Book Library</h1>
     <nav class="nav">
+      <!-- Filter dropdown with radio buttons -->
+      <div class="sort-container" id="sortContainer"></div>
+
       <!-- Dropdown for filtering by genre -->
       <select id="dropdown">
         <option value="all">All</option>
@@ -25,9 +28,6 @@
         <option value="Dystopian">Dystopian</option>
       </select>
 
-      <!-- Filter dropdown with radio buttons -->
-      <div class="sort-container" id="sortContainer"></div>
-
       <!-- Search input -->
       <input type="text" id="searchInput" placeholder="Search by title...">
 
@@ -38,7 +38,7 @@
       </div>
 
       <nav id="favourites" class="hidden">
-        <ul id="favouriteList"></ul>
+        <ul id="favouriteList">Choose your favorite books❤️</ul>
       </nav>
 
     </nav>
