@@ -12,41 +12,37 @@
 <body>
   <header class="header">
     <h1>Book Library</h1>
+    <nav class="nav">
+      <!-- Dropdown for filtering by genre -->
+      <select id="dropdown">
+        <option value="all">All</option>
+        <option value="Adventure">Adventure</option>
+        <option value="Fiction">Fiction</option>
+        <option value="Science Fiction">Science Fiction</option>
+        <option value="Fantasy">Fantasy</option>
+        <option value="Horror">Horror</option>
+        <option value="Mystery">Mystery</option>
+        <option value="Dystopian">Dystopian</option>
+      </select>
 
-    <!-- Dropdown for filtering by genre -->
-    <select id="dropdown">
-      <option value="all">All</option>
-      <option value="Adventure">Adventure</option>
-      <option value="Fiction">Fiction</option>
-      <option value="Science Fiction">Science Fiction</option>
-      <option value="Fantasy">Fantasy</option>
-      <option value="Horror">Horror</option>
-      <option value="Mystery">Mystery</option>
-      <option value="Dystopian">Dystopian</option>
-    </select>
+      <!-- Filter dropdown with radio buttons -->
+      <div class="sort-container" id="sortContainer"></div>
 
-    <!-- Filter dropdown with radio buttons -->
-    <div class="sort-container" id="sortContainer"></div>
+      <!-- Search input -->
+      <input type="text" id="searchInput" placeholder="Search by title...">
 
-    <!-- Search input -->
-    <input type="text" id="searchInput" placeholder="Search by title...">
+      <!-- Hamburger menu for favorite books -->
+      <div class="hamburger-menu" onclick="toggleFavouriteMenu()">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+      </div>
 
-    <!-- Hamburger menu for favorite books -->
-    <div class="hamburger-menu" onclick="toggleHamburgerMenu()">
-      <div class="bar1"></div>
-      <div class="bar2"></div>
-    </div>
+      <nav id="favourites" class="hidden">
+        <ul id="favouriteList"></ul>
+      </nav>
 
-    <nav id="favourites" class="hidden">
-      <ul id="favouriteList"></ul>
     </nav>
-
   </header>
-
-  <!-- Add a list with selected favourite books -->
-  <!-- <section id="favourites"></section> -->
-
-
 
   <!-- add book cards here from JS -->
   <section id="container"></section>

@@ -166,6 +166,7 @@ console.table(BOOKS)
 const container = document.getElementById("container")
 const filterDropdown = document.getElementById("dropdown")
 const favouritesContainer = document.getElementById("favourites")
+const favList = document.getElementById('favouriteList')
 let favouriteBooks = [] // Array to store favorite books
 const sortContainer = document.getElementById("sortContainer") 
 
@@ -175,7 +176,7 @@ const toggleSortMenu = () => {
   
    // Add the button and the sort menu dynamically
   sortContainer.innerHTML += `
-    <button class="sort-toggle" id="sortToggle">Sort &#x25BC</button>
+    <button class="sort-toggle" id="sortToggle">Sort ▼</button>
     <div id="sortMenu" class="sort-menu hidden">
       <label>
         <input type="radio" name="sort" value="year-desc" onclick="sortBooksBy('year-desc')">
@@ -208,31 +209,29 @@ const toggleSortMenu = () => {
 }
 
 // Global sorting function
-  const sortBooksBy = (value) => {
-    let sortedBooks
+const sortBooksBy = (value) => {
+  let sortedBooks
 
-    switch (value) {
-      case 'year-desc':
-        sortedBooks = BOOKS.slice().sort((a, b) => b.year - a.year)
-        break
+  switch (value) {
+    case 'year-desc':
+      sortedBooks = BOOKS.slice().sort((a, b) => b.year - a.year)
+      break
       
-      case 'year-asc':
-        sortedBooks = BOOKS.slice().sort((a, b) => a.year - b.year)
-        break
+    case 'year-asc':
+      sortedBooks = BOOKS.slice().sort((a, b) => a.year - b.year)
+      break
       
-      case 'rating-low-high':
-        sortedBooks = BOOKS.slice().sort((a, b) => a.rating - b.rating)
-        break
+    case 'rating-low-high':
+      sortedBooks = BOOKS.slice().sort((a, b) => a.rating - b.rating)
+      break
       
-      case 'rating-high-low':
-        sortedBooks = BOOKS.slice().sort((a, b) => b.rating - a.rating)
-        break      
-    }
-
-    getBooks(sortedBooks) // Re-render the books
+    case 'rating-high-low':
+      sortedBooks = BOOKS.slice().sort((a, b) => b.rating - a.rating)
+      break      
   }
 
-
+  getBooks(sortedBooks) // Re-render the books
+}
 
 // Function to display books
 const getBooks = (bookArray) => {
@@ -269,11 +268,17 @@ const toggleDescription = (bookTitle) => {
   }
 }
 
-// Function to display favourite books
+// Function to toggle the favorite books menu visibility (ham menu)
+const toggleFavouriteMenu = () => {
+  favouritesContainer.classList.toggle('hidden') // Toggle the 'hidden' class
+}
+
+// Function to display favorite books in the ham menu
 const displayFavourites = () => {
-  favouritesContainer.innerHTML = "<h2>Favorite Books</h2>"
+  favList.innerHTML = "" // Clean up the fav list
+
   favouriteBooks.forEach(book => {
-    favouritesContainer.innerHTML += `<p> ${book.title}</p>`
+    favList.innerHTML += `<li>${book.title}</li>`
   })
 }
 
@@ -289,7 +294,6 @@ const toggleFavourite = (bookTitle) => {
   }
 
   getBooks(BOOKS) // Refresh the book list
-  console.table(BOOKS)
   displayFavourites() // Update the favorite books list  
   console.table(favouriteBooks)
 }
