@@ -24,6 +24,7 @@ h2 {
   align-items: center;
   background-color: #f9f9f9;
   padding: 1rem;
+  padding-bottom: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
@@ -45,7 +46,7 @@ h2 {
 
 .card h2 {
   margin-top: 1rem;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   color: #2c3e50;
   text-align: center;
   height: 3rem; /* Fixed height to align all titles */
@@ -66,7 +67,6 @@ h2 {
 }
 
 .card p {
-  text-align: left;
   font-size: 1rem;
   color: #333;
   margin: 1px;
@@ -96,14 +96,6 @@ h2 {
 
 .card button:focus {
   outline: solid 2px #0018A4;
-}
-
-.description {
-  margin-top: 0.5rem;
-  color: #555;
-  font-size: 0.9rem;
-  line-height: 1,4;
-  display: none;
 }
 
 /* 

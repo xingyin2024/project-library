@@ -167,13 +167,81 @@ const container = document.getElementById("container")
 const filterDropdown = document.getElementById("dropdown")
 const favouritesContainer = document.getElementById("favourites")
 let favouriteBooks = [] // Array to store favorite books
+const sortContainer = document.getElementById("sortContainer") 
+
+// Function to render the sort menu and toggle visibility
+const toggleSortMenu = () => {
+  sortContainer.innerHTML = "" // Clean up the sort container
+  
+   // Add the button and the sort menu dynamically
+  sortContainer.innerHTML += `
+    <button class="sort-toggle" id="sortToggle">Sort &#x25BC</button>
+    <div id="sortMenu" class="sort-menu hidden">
+      <label>
+        <input type="radio" name="sort" value="year-desc" onclick="sortBooksBy('year-desc')">
+        Sort by Year: Descending
+      </label>
+      <label>
+        <input type="radio" name="sort" value="year-asc" onclick="sortBooksBy('year-asc')">
+        Sort by Year: Ascending
+      </label>
+      <label>
+        <input type="radio" name="sort" value="rating-low-high" onclick="sortBooksBy('rating-low-high')">
+        Sort by Rating: Low to High
+      </label>
+      <label>
+        <input type="radio" name="sort" value="rating-high-low" onclick="sortBooksBy('rating-high-low')">
+        Sort by Rating: High to Low
+      </label>
+    </div>`
+
+  // Add click event listener to the sort button for toggling menu vsibility
+  const sortToggleButton = document.getElementById("sortToggle")
+  sortToggleButton.addEventListener("click", () => {
+    const sortMenu = document.getElementById("sortMenu")
+    if (sortMenu.classList.contains('hidden')) {
+      sortMenu.classList.remove('hidden')
+    } else {
+      sortMenu.classList.add('hidden')
+    }
+  })
+}
+
+// Global sorting function
+  const sortBooksBy = (value) => {
+    let sortedBooks
+
+    switch (value) {
+      case 'year-desc':
+        sortedBooks = BOOKS.slice().sort((a, b) => b.year - a.year)
+        break
+      
+      case 'year-asc':
+        sortedBooks = BOOKS.slice().sort((a, b) => a.year - b.year)
+        break
+      
+      case 'rating-low-high':
+        sortedBooks = BOOKS.slice().sort((a, b) => a.rating - b.rating)
+        break
+      
+      case 'rating-high-low':
+        sortedBooks = BOOKS.slice().sort((a, b) => b.rating - a.rating)
+        break      
+    }
+
+    getBooks(sortedBooks) // Re-render the books
+  }
+
+
 
 // Function to display books
 const getBooks = (bookArray) => {
   container.innerHTML = "" // Clean up the container
   bookArray.forEach(book => {
     const isFavourite = favouriteBooks.includes(book) // Check if the book is a favorite
-    const buttonText = isFavourite ? "Remove from Favourites" : "Add to Favourites" // Change the text on the favo button
+    const buttonText = isFavourite
+      ? "Remove from Favourites"
+      : "Add to Favourites" // Change the text on the favo button
     
     container.innerHTML += `
       <div class="card">
@@ -185,7 +253,7 @@ const getBooks = (bookArray) => {
         <p><b>Genre: </b>${book.genre}</p>
         <p><b>Rating: </b>${book.rating}</p>
         <button onclick="toggleDescription('${book.title}')">Read More</button>
-        <p id="desc-${book.title}" class="description" style="display: none;"><b>Description: </b>${book.description}</p>
+        <p id="desc-${book.title}" class="description" style="display: none;"><br>${book.description}</p>
         <button onclick="toggleFavourite('${book.title}')">${buttonText}</button>
       </div>`
   })
@@ -239,5 +307,7 @@ const filterBooks = () => {
 }
 
 filterDropdown.addEventListener("change", filterBooks)
+
+toggleSortMenu()
 
 getBooks(BOOKS)
