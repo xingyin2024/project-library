@@ -161,14 +161,138 @@ const BOOKS = [
   }
 ]
 
-console.table(BOOKS)
-
 const container = document.getElementById("container")
 const filterDropdown = document.getElementById("dropdown")
 const favouritesContainer = document.getElementById("favourites")
 const favList = document.getElementById('favouriteList')
-let favouriteBooks = [] // Array to store favorite books
 const sortContainer = document.getElementById("sortContainer") 
+
+let favouriteBooks = [] // Array to store favorite books
+
+/**
+ * DISPLAY FUNCTIONS
+ */
+
+// Function to display books
+const getBooks = (bookArray) => {
+  container.innerHTML = "" // Clean up the container
+  bookArray.forEach(book => {
+    const isFavourite = favouriteBooks.includes(book) // Check if the book is a favorite
+    const buttonText = isFavourite
+      ? "Remove from Favourites"
+      : "Add to Favourites" // Change the text on the favo button
+    
+    container.innerHTML += `
+      <div class="card">
+        <img src=${book.image} alt=${book.title} />
+        <h2>${book.title}</h2>
+        <hr>
+        <p><b>Author: </b>${book.author}</p>
+        <p><b>Year: </b>${book.year}</p>
+        <p><b>Genre: </b>${book.genre}</p>
+        <p><b>Rating: </b>${book.rating}</p>
+        <button onclick="toggleDescription('${book.title}')">Read More</button>
+        <p id="desc-${book.title}" class="description" style="display: none;"><br>${book.description}</p>
+        <button onclick="toggleFavourite('${book.title}')">${buttonText}</button>
+      </div>`
+  })
+}
+
+// Function to display favorite books in the ham menu
+const displayFavourites = () => {
+  favList.innerHTML = "" // Clean up the fav list
+
+  if (favouriteBooks.length > 0) {
+    // Add the heading "Your favourite books" only if there are favorite books
+    favList.innerHTML += `<p><strong>Your favourite books:</strong></p>`
+    
+    favouriteBooks.forEach(book => {
+      favList.innerHTML += `<li>${book.title}</li>`
+    })
+  } else {
+    // Display a message if no favorite books are added yet
+    favList.innerHTML += `<p><strong>No favourite books added yet.</strong></p>`
+  }
+}
+
+/**
+ * TOGGLING FUNCTIONS
+ */
+
+// Function to toggle Read More
+const toggleDescription = (bookTitle) => {
+  const descriptionElement = document.getElementById(`desc-${bookTitle}`)
+  if (descriptionElement.style.display === "none") {
+    descriptionElement.style.display = "block"
+  } else {
+    descriptionElement.style.display = "none"
+  }
+}
+
+// Function to toggle the favorite books menu visibility (ham menu)
+const toggleFavouriteMenu = () => {
+  favouritesContainer.classList.toggle('show') // Toggle the 'show' class
+}
+
+// Function to toggle favourite books (add/remove)
+const toggleFavourite = (bookTitle) => {
+  const book = BOOKS.find(book => book.title === bookTitle)
+  const bookIndex = favouriteBooks.indexOf(book)
+
+  if (bookIndex > -1) {
+    favouriteBooks.splice(bookIndex,1) // If the book is already in the favorites, remove it
+  } else {
+    favouriteBooks.push(book) // Otherwise, add it to the favorites
+  }
+
+  getBooks(BOOKS) // Refresh the book list
+  displayFavourites() // Update the favorite books list  
+}
+
+/**
+ * SORTING AND FILTERING FUNCTIONS
+ */
+
+// Function to filter books based on genre
+const filterBooks = () => {
+  // get the value from the select
+  const value = filterDropdown.value
+  if (value === "all") {
+    getBooks(BOOKS) //  Display all books
+  } else {
+    const filteredList = BOOKS.filter(book => book.genre === value) // Filter books by genre
+    getBooks(filteredList)
+  }
+}
+
+// Global sorting function
+const sortBooksBy = (value) => {
+  let sortedBooks
+
+  switch (value) {
+    case 'year-desc':
+      sortedBooks = BOOKS.slice().sort((a, b) => b.year - a.year)
+      break
+      
+    case 'year-asc':
+      sortedBooks = BOOKS.slice().sort((a, b) => a.year - b.year)
+      break
+      
+    case 'rating-low-high':
+      sortedBooks = BOOKS.slice().sort((a, b) => a.rating - b.rating)
+      break
+      
+    case 'rating-high-low':
+      sortedBooks = BOOKS.slice().sort((a, b) => b.rating - a.rating)
+      break      
+  }
+
+  getBooks(sortedBooks) // Re-render the books
+}
+
+/**
+ * INITIALIZATION AND EVENT LISTENERS
+ */
 
 // Function to render the sort menu and toggle visibility
 const toggleSortMenu = () => {
@@ -200,126 +324,19 @@ const toggleSortMenu = () => {
   const sortToggleButton = document.getElementById("sortToggle")
   sortToggleButton.addEventListener("click", () => {
     const sortMenu = document.getElementById("sortMenu")
-    if (sortMenu.style.display === "none" || sortMenu.style.display === "") {
-      sortMenu.style.display = "block";  // Show the menu
-    } else {
-      sortMenu.style.display = "none";   // Hide the menu
-    }
+    sortMenu.style.display = (sortMenu.style.display === "none" || sortMenu.style.display === "")
+      ? "block"
+      : "none";
   })
 }
 
-// Global sorting function
-const sortBooksBy = (value) => {
-  let sortedBooks
+// Event listener for the reset button
+const resetButton = document.getElementById('resetButton');
+resetButton.addEventListener('click', () => {
+  location.reload(); // Refreshes the page
+});
 
-  switch (value) {
-    case 'year-desc':
-      sortedBooks = BOOKS.slice().sort((a, b) => b.year - a.year)
-      break
-      
-    case 'year-asc':
-      sortedBooks = BOOKS.slice().sort((a, b) => a.year - b.year)
-      break
-      
-    case 'rating-low-high':
-      sortedBooks = BOOKS.slice().sort((a, b) => a.rating - b.rating)
-      break
-      
-    case 'rating-high-low':
-      sortedBooks = BOOKS.slice().sort((a, b) => b.rating - a.rating)
-      break      
-  }
-
-  getBooks(sortedBooks) // Re-render the books
-}
-
-// Function to display books
-const getBooks = (bookArray) => {
-  container.innerHTML = "" // Clean up the container
-  bookArray.forEach(book => {
-    const isFavourite = favouriteBooks.includes(book) // Check if the book is a favorite
-    const buttonText = isFavourite
-      ? "Remove from Favourites"
-      : "Add to Favourites" // Change the text on the favo button
-    
-    container.innerHTML += `
-      <div class="card">
-        <img src=${book.image} alt=${book.title} />
-        <h2>${book.title}</h2>
-        <hr>
-        <p><b>Author: </b>${book.author}</p>
-        <p><b>Year: </b>${book.year}</p>
-        <p><b>Genre: </b>${book.genre}</p>
-        <p><b>Rating: </b>${book.rating}</p>
-        <button onclick="toggleDescription('${book.title}')">Read More</button>
-        <p id="desc-${book.title}" class="description" style="display: none;"><br>${book.description}</p>
-        <button onclick="toggleFavourite('${book.title}')">${buttonText}</button>
-      </div>`
-  })
-}
-
-// Function to toggle Read More
-const toggleDescription = (bookTitle) => {
-  const descriptionElement = document.getElementById(`desc-${bookTitle}`)
-  if (descriptionElement.style.display === "none") {
-    descriptionElement.style.display = "block"
-  } else {
-    descriptionElement.style.display = "none"
-  }
-}
-
-// Function to toggle the favorite books menu visibility (ham menu)
-const toggleFavouriteMenu = () => {
-  favouritesContainer.classList.toggle('show') // Toggle the 'show' class
-}
-
-// Function to display favorite books in the ham menu
-const displayFavourites = () => {
-  favList.innerHTML = "" // Clean up the fav list
-
-  if (favouriteBooks.length > 0) {
-    // Add the heading "Your favourite books" only if there are favorite books
-    favList.innerHTML += `<p><strong>Your favourite books:</strong></p>`
-    
-    favouriteBooks.forEach(book => {
-      favList.innerHTML += `<li>${book.title}</li>`
-    })
-  } else {
-    // Display a message if no favorite books are added yet
-    favList.innerHTML += `<p><strong>No favourite books added yet.</strong></p>`
-  }
-}
-
-// Function to toggle favourite books (add/remove)
-const toggleFavourite = (bookTitle) => {
-  const book = BOOKS.find(book => book.title === bookTitle)
-  const bookIndex = favouriteBooks.indexOf(book)
-
-  if (bookIndex > -1) {
-    favouriteBooks.splice(bookIndex,1) // If the book is already in the favorites, remove it
-  } else {
-    favouriteBooks.push(book) // Otherwise, add it to the favorites
-  }
-
-  getBooks(BOOKS) // Refresh the book list
-  displayFavourites() // Update the favorite books list  
-  console.table(favouriteBooks)
-}
-
-// Function to filter books based on genre
-const filterBooks = () => {
-  // get the value from the select
-  const value = filterDropdown.value
-  if (value === "all") {
-    getBooks(BOOKS) //  Display all books
-  } else {
-    const filteredList = BOOKS.filter(book => book.genre === value) // Filter books by genre
-    getBooks(filteredList)
-  }
-}
-
+// Initialize sorting and book rendering
 filterDropdown.addEventListener("change", filterBooks)
-
 toggleSortMenu()
-
 getBooks(BOOKS)

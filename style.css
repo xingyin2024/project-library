@@ -212,10 +212,12 @@ body {
     width: 100%;
   }
    
+  #resetButton,
   #dropdown,
   #sortContainer,
   #searchInput {
   width: 100%;
+  align-self: start;
   }
 
   /* Ensure the hamburger menu remains in the top corner and is always visible */
@@ -225,6 +227,24 @@ body {
     right: 20px;
     z-index: 200; /* Maintain a higher z-index */
   }
+}
+
+/* Styling the reset button */
+.reset-btn {
+  background-color: var(--light-pink);
+  color: var(--blue);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.reset-btn:hover {
+  background-color: var(--pink);
+  color: var(--white);
+  outline: solid 2px var(--blue);
 }
 
 /* 
